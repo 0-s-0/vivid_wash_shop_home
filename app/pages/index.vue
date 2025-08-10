@@ -1,7 +1,7 @@
 <template>
   <!-- head -->
-  <div >
-     <NuxtImg src="https://example.com/photo.jpg" width="600" height="400" alt="Example photo" />
+  <div>
+     首页
   </div>
 </template>
 

@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .flex-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

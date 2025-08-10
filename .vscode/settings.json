@@ -1,0 +1,20 @@
+{
+  // 保存时自动修复 ESLint 规则
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // 关闭 VSCode 默认的格式化，统一用 ESLint
+  "editor.formatOnSave": false,
+
+  // 指定使用 eslint 作为默认 formatter（防止 Prettier 抢占）
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxt/test-utils",
+    "@nuxtjs/i18n",
   ],
   css: ["~/assets/css/main.css", "~/assets/css/base.css"],
   postcss: {
@@ -28,4 +29,23 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  i18n: {
+    locales: [
+      { code: "en", name: "English", iso: "en-US", file: "en.json" },
+      { code: "zh", name: "中文", iso: "zh-CN", file: "zh.json" },
+    ],
+    defaultLocale: "en",
+    langDir: "locales/", // 本地语言文件目录
+    strategy: "prefix", // URL 前缀策略，'prefix' 表示域名后加语言前缀，如 /en/xxx，/zh/xxx
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root", // 只有根路径重定向
+    },
+  },
+  fonts: {
+    families: [
+      { name: 'heavy', src: '/fonts/FranklinGothicHeavyRegular.ttf', weight: 'bold' },
+    ]
+  }
 });
