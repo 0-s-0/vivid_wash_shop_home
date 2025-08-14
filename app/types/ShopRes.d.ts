@@ -25,13 +25,17 @@ export interface BusinessData {
   lng: number;
   type: number;
   telphone: string;
+  workstation_count: number;
   cate: Category[];
   distance: number;
+  best_review: string;
+  best_star: number;
   imageUri: string;
-  avg_rating: number;
+  avg_rating: string;
   cover_image_uri: string;
   packageData: PackageData[];
   serviceData: ServiceItem[];
+  reviews: Review[];
 }
 
 export interface Category {
@@ -46,6 +50,7 @@ export interface PackageData {
   name: string;
   price: number;
   price_type: number;
+  sort_order: number;
   service: string[];
   owner_id: number;
   duration: number;
@@ -69,6 +74,27 @@ export interface ServiceItem {
   description: string;
   duration: number;
   price: number;
+  price_type: number;
   currency: string;
   price_display: number;
+}
+
+export interface Review {
+  id: number;
+  user_id: number;
+  employee_id: number;
+  shop_id: number;
+  booking_id: number;
+  star: number;
+  cmt: string;
+  created_at: string;
+  updated_at: string;
+  user: ReviewUser;
+}
+
+export interface ReviewUser {
+  name: string;
+  id: number;
+  image: string;
+  imageUri: string;
 }

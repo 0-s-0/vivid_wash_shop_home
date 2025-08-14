@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/test-utils",
     "@nuxtjs/i18n",
+    '@vant/nuxt'
   ],
   css: ["~/assets/css/main.css", "~/assets/css/base.css"],
   postcss: {
@@ -33,6 +34,7 @@ export default defineNuxtConfig({
     locales: [
       { code: "en", name: "English", iso: "en-US", file: "en.json" },
       { code: "zh", name: "中文", iso: "zh-CN", file: "zh.json" },
+      { code: "sr", name: "Српски", iso: "sr-RS", file: "sr.json" },
     ],
     defaultLocale: "en",
     langDir: "locales/", // 本地语言文件目录

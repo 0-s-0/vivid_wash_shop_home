@@ -3,18 +3,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-
+  "eslint.useFlatConfig": true,
   // 关闭 VSCode 默认的格式化，统一用 ESLint
-  "editor.formatOnSave": false,
-
+  "editor.formatOnSave": true,
   // 指定使用 eslint 作为默认 formatter（防止 Prettier 抢占）
   "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "Vue.volar"
   }
 }
