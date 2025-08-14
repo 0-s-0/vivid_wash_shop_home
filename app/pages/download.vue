@@ -9,7 +9,7 @@
         @click="openApp">
         {{ $t('打开 Vivid wash') }}
       </button>
-      <button class="w-[300px] border border-green-600 h-[44px] rounded-full !text-green-600 mb-4">
+      <button class="w-[300px] border border-green-600 h-[44px] rounded-full !text-green-600 mb-4" @click="download">
         {{ $t('下载 Vivid wash') }}
       </button>
     </div>
@@ -36,7 +36,20 @@ const getMobileOS = (): "Android" | "iOS" | "unknown" => {
   return "unknown";
 };
 const openApp = () => {
+  window.location.href = "vividwash://shopdetail?id=1";
   showToast(t('正在跳转，请稍等...'));
+  setTimeout(() => {
+    download();
+  }, 2000)
+};
+const download = () => {
+  // 复制到剪贴板
+  copyToClipboard("vividwash://shopdetail?id=1");
+  if (getMobileOS() === "iOS") {
+    window.location.href = "https://apps.apple.com/us/app/vivid-wash/id6742226153";
+  } else {
+    window.location.href = "https://play.google.com/store/apps/details?id=com.tailwind.vivid1";
+  }
 };
 onMounted(() => {
   getMobileOS();
