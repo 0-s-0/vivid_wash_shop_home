@@ -30,6 +30,14 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  app: {
+    head: {
+      title: "Vivid Wash",
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      ],
+    },
+  },
   i18n: {
     locales: [
       { code: "en", name: "English", iso: "en-US", file: "en.json" },

@@ -65,7 +65,7 @@
       </div>
 
       <!-- tabs -->
-      <div class="flex gap-4 mb-5">
+      <div class="flex gap-4 mb-5 ml-1">
         <div v-for="(item, index) in tabs" :key="item"
           class="bg-gradient-to-b transition select-none h-[40px] min-w-[116px] flex-c rounded-lg -skew-y-12 rotate-12 font-bold px-2"
           :class="tabsActive === index
@@ -77,8 +77,8 @@
       </div>
       <!-- 内容列表 -->
       <template v-if="tabsActive === 0">
-        <div v-for="item in shop?.packageData" :key="item.id" class="border-2 border-[#EEEEEE] rounded-lg mb-4"
-          @click="download">
+        <div v-for="item in shop?.packageData" :key="item.id"
+          class="border-2 border-[#EEEEEE] rounded-lg mb-4 bg-gradient-to-b from-[#FFF] to-[#F1FFF1]" @click="download">
           <div class="py-3 px-3">
             <div class="font-[heavy] font-bold text-[20px] text-[#08A000] mb-3">
               {{ item.name }}
@@ -93,8 +93,8 @@
         </div>
       </template>
       <template v-else>
-        <div v-for="item in shop?.serviceData" :key="item.id" class="border-2 border-[#EEEEEE] rounded-lg mb-4"
-          @click="download">
+        <div v-for="item in shop?.serviceData" :key="item.id"
+          class="border-2 border-[#EEEEEE] rounded-lg mb-4 bg-gradient-to-b from-[#FFF] to-[#F1FFF1]" @click="download">
           <div class="py-3 px-3">
             <div class="font-[heavy] font-bold text-[20px] text-[#08A000] mb-3">
               {{ item.name }}
