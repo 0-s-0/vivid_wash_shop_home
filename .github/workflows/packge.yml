@@ -49,7 +49,7 @@ jobs:
             git clean -fd
           else
             echo "缓存未命中，克隆仓库"
-            git clone https://xushicai123:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git dist-repo-${{ matrix.target-branch }}
+            git clone https://0-s-0:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git dist-repo-${{ matrix.target-branch }}
           fi
 
       - name: 切换分支
@@ -73,4 +73,4 @@ jobs:
           cd dist-repo-${{ matrix.target-branch }}
           git add .
           git commit -m "机器打包" || echo "No changes to commit"
-          git push --set-upstream "https://xushicai123:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git" ${{ matrix.target-branch }}
+          git push --set-upstream "https://0-s-0:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git" ${{ matrix.target-branch }}
