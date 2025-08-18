@@ -21,7 +21,7 @@ jobs:
       - name: 设置 Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: 设置 git 配置
         run: |
@@ -29,7 +29,7 @@ jobs:
           git config --global user.name "xushicai123"
 
       - name: 安装依赖
-        run: npm i
+        run: pnpm i
 
       # 缓存 dist-repo-${{ matrix.target-branch }} 仓库
       - name: 缓存 dist-repo-${{ matrix.target-branch }} 仓库
