@@ -37,7 +37,7 @@ const getMobileOS = (): "Android" | "iOS" | "unknown" => {
   return "unknown";
 };
 const openApp = () => {
-  window.location.href = `vividwash://shopdetail?id=${route.query.id}`;
+  window.location.href = `vividwash://?page=shopdetail&id=${route.query.id}`;
   showToast(t('正在跳转，请稍等...'));
   setTimeout(() => {
     download();
