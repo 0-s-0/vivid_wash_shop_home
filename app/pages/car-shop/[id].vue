@@ -23,10 +23,10 @@
       <div class="bg-gradient-to-b from-[#F7FEF7] to-[#F1FFF1] rounded-lg p-2 pb-5 mb-5" @click="download">
         <div class="flex items-center -ml-2 -mt-2 mb-3">
           <div
-            class="w-[64px] h-[38px] bg-[url('~/assets/images/score.png')] bg-cover flex-c font-bold text-[18px] font-[heavy] text-white">
-            {{ shop?.best_star }}
+            class="w-[64px] h-[38px] bg-[url('~/assets/images/score.png')] bg-cover flex-c font-bold text-[18px] font-[heavy] text-white pl-1">
+            {{ shop?.best_star.toFixed(1) }}
           </div>
-          <span class="text-[15px text-[#00C103] mx-1.5 flex-1">{{ shop?.best_review }}</span>
+          <span class="text-[15px text-[#00C103] mx-1.5 flex-1">{{ shop?.best_review || $t("暂无评论") }}</span>
           <img class="w-[24px] h-[21px]" src="~/assets/images/comma.png" />
         </div>
         <div class="flex items-center justify-between">
