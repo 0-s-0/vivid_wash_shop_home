@@ -1,0 +1,76 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    # 矩阵策略
+    strategy:
+      matrix:
+        target-branch: [main]
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 设置 git 配置
+        run: |
+          git config --global user.email "xushicai@proton.me"
+          git config --global user.name "xushicai123"
+
+      - name: 安装依赖
+        run: npm i
+
+      # 缓存 dist-repo-${{ matrix.target-branch }} 仓库
+      - name: 缓存 dist-repo-${{ matrix.target-branch }} 仓库
+        uses: actions/cache@v3
+        with:
+          path: dist-repo-${{ matrix.target-branch }}
+          key: dist-repo-${{ matrix.target-branch }}-${{ runner.os }}
+          restore-keys: |
+            dist-repo-${{ matrix.target-branch }}-${{ runner.os }}
+
+      - name: 检查 dist-repo-${{ matrix.target-branch }} 目录并更新
+        run: |
+          if [ -d "dist-repo-${{ matrix.target-branch }}/.git" ]; then
+            echo "缓存命中，更新仓库"
+            cd dist-repo-${{ matrix.target-branch }}
+            git reset --hard
+            git clean -fd
+          else
+            echo "缓存未命中，克隆仓库"
+            git clone https://xushicai123:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git dist-repo-${{ matrix.target-branch }}
+          fi
+
+      - name: 切换分支
+        run: |
+          cd dist-repo-${{ matrix.target-branch }}
+          git fetch origin
+          git checkout ${{ matrix.target-branch }} || git checkout -b ${{ matrix.target-branch }}
+          git pull --rebase origin ${{ matrix.target-branch }} || echo "new branch"
+
+      - name: 构建
+        run: npm run build -- --mode ${{ matrix.target-branch }}
+
+      # - name: 清空目标仓库中的 dist 文件夹
+      #   run: rm -rf dist-repo-${{ matrix.target-branch }}/*
+
+      - name: 将构建文件复制到目标仓库
+        run: cp -r .output/* dist-repo-${{ matrix.target-branch }}/
+
+      - name: 提交并推送到 dist 仓库
+        run: |
+          cd dist-repo-${{ matrix.target-branch }}
+          git add .
+          git commit -m "机器打包" || echo "No changes to commit"
+          git push --set-upstream "https://xushicai123:${{ secrets.GH_TOKEN }}@github.com/0-s-0/vivid_wash_shop_home_dist.git" ${{ matrix.target-branch }}
