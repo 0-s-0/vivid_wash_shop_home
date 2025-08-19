@@ -180,7 +180,7 @@ const download = () => {
   openApp()
 };
 const handleScroll = () => {
-  isTabsSticky.value = (tabsRef.value?.getBoundingClientRect().top ?? 0) < (downloadRef.value?.$el.getBoundingClientRect().height ?? 0)
+  isTabsSticky.value = (tabsRef.value?.getBoundingClientRect().top ?? 0) <= (downloadRef.value?.$el.getBoundingClientRect ? downloadRef.value?.$el?.getBoundingClientRect().height : 0)
 }
 onMounted(() => {
   window.addEventListener("scroll", handleScroll)
