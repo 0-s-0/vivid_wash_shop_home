@@ -6,7 +6,8 @@ export default withNuxt(
   {
     rules: {
       "vue/html-self-closing": "off",
-      "vue/first-attribute-linebreak": "off"
+      "vue/first-attribute-linebreak": "off",
+      "vue/multi-word-component-names": "off"
     }
   }
 )

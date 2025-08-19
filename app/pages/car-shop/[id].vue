@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Download ref="downloadRef" />
+
     <!-- head -->
     <header class="w-full h-[250px] overflow-hidden">
       <NuxtImg class="w-full h-full block object-cover" :src="shop?.cover_image_uri" />
@@ -36,7 +38,7 @@
       </div>
 
       <!-- time map share -->
-      <div class="flex mb-6">
+      <div class="flex mb-4">
         <div
           class="h-[65px] flex-1 bg-[radial-gradient(ellipse_at_50%_50%,_#F8FEF8_0%,_#F1FFFD_100%)] bg-[#F6FCFE] rounded-lg p-3 flex items-center">
           <img class="size-[40px] mr-3" src="~/assets/images/car.png" alt="car" />
@@ -65,7 +67,8 @@
       </div>
 
       <!-- tabs -->
-      <div class="flex gap-4 mb-5 ml-1">
+      <div ref="tabsRef" class="flex gap-4  sticky  bg-white z-50 py-2 mb-3 -mx-3 px-3 pl-4"
+        :class="[headShow ? 'top-[70px]' : 'top-0', isTabsSticky ? 'shadow-lg' : '']">
         <div v-for="(item, index) in tabs" :key="item"
           class="bg-gradient-to-b transition select-none h-[40px] min-w-[116px] flex-c rounded-lg -skew-y-12 rotate-12 font-bold px-2"
           :class="tabsActive === index
@@ -75,8 +78,10 @@
           <span class="skew-y-12 -rotate-12 text-[16px]">{{ item }}</span>
         </div>
       </div>
+
       <!-- 内容列表 -->
       <template v-if="tabsActive === 0">
+        <van-empty v-if="shop?.packageData.length === 0" :description="$t('暂无套餐')" />
         <div v-for="item in shop?.packageData" :key="item.id"
           class="border-2 border-[#EEEEEE] rounded-lg mb-4 bg-gradient-to-b from-[#FFF] to-[#F1FFF1]" @click="download">
           <div class="py-3 px-3">
@@ -93,6 +98,7 @@
         </div>
       </template>
       <template v-else>
+        <van-empty v-if="shop?.serviceData.length === 0" :description="$t('暂无服务')" />
         <div v-for="item in shop?.serviceData" :key="item.id"
           class="border-2 border-[#EEEEEE] rounded-lg mb-4 bg-gradient-to-b from-[#FFF] to-[#F1FFF1]" @click="download">
           <div class="py-3 px-3">
@@ -117,11 +123,17 @@
 import dayjs from "dayjs";
 import type { BusinessData, BusinessResponse } from "~/types/ShopRes";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import Download from "~/components/Download.vue";
 dayjs.extend(customParseFormat);
 const route = useRoute();
 const tabsActive = ref(0);
 const { t } = useI18n();
+const { openApp } = useOpenAdd()
 const tabs = [t('套餐'), t('服务')];
+const { headShow } = useHeadShow()
+const tabsRef = ref<HTMLElement | null>(null)
+const downloadRef = ref<InstanceType<typeof Download> | null>(null)
+const isTabsSticky = ref(false);
 
 // 数据请求
 const shop = ref<BusinessData | null>(null);
@@ -165,11 +177,15 @@ if (data.value?.success) {
 }
 
 const download = () => {
-  const localePath = useLocalePath();
-  // 使用 navigateTo 来处理国际化路由跳转，避免路由警告
-  navigateTo({
-    path: localePath("/download"),
-    query: { id: route.params.id },
-  });
+  openApp()
 };
+const handleScroll = () => {
+  isTabsSticky.value = (tabsRef.value?.getBoundingClientRect().top ?? 0) < (downloadRef.value?.$el.getBoundingClientRect().height ?? 0)
+}
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll)
+})
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll)
+})
 </script>
